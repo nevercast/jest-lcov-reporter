@@ -69,7 +69,7 @@ async function main() {
 		})
 
 		const existingComment = issueComments.data.find(comment =>
-			comment.body.includes(commentIdentifier(options.workflowName)),
+			comment.body.includes(commentIdentifier(options)),
 		)
 
 		if (existingComment) {

@@ -29,12 +29,13 @@ function comment(lcov, table, options) {
 		table,
 		"\n\n",
 		details(summary("Coverage Report"), tabulate(lcov, options)),
-		commentIdentifier(options.workflowName),
+		commentIdentifier(options),
 	)
 }
 
-export function commentIdentifier(workflowName) {
-	return `<!-- Code Coverage Comment: ${workflowName} -->`
+export function commentIdentifier(workflowOptions) {
+	const canary = workflowOptions.workflowName + (workflowOptions.name ? ` ${workflowOptions.name}` : '');
+	return `<!-- Code Coverage Comment: ${canary} -->`
 }
 
 export function diff(lcov, before, options) {

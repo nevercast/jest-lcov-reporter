@@ -23023,12 +23023,13 @@ function comment(lcov, table, options) {
 		table,
 		"\n\n",
 		details(summary("Coverage Report"), tabulate(lcov, options)),
-		commentIdentifier(options.workflowName),
+		commentIdentifier(options),
 	)
 }
 
-function commentIdentifier(workflowName) {
-	return `<!-- Code Coverage Comment: ${workflowName} -->`
+function commentIdentifier(workflowOptions) {
+	const canary = workflowOptions.workflowName + (workflowOptions.name ? ` ${workflowOptions.name}` : '');
+	return `<!-- Code Coverage Comment: ${canary} -->`
 }
 
 function diff(lcov, before, options) {
@@ -23124,7 +23125,7 @@ async function main$1() {
 		});
 
 		const existingComment = issueComments.data.find(comment =>
-			comment.body.includes(commentIdentifier(options.workflowName)),
+			comment.body.includes(commentIdentifier(options)),
 		);
 
 		if (existingComment) {

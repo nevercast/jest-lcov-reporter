@@ -7,8 +7,12 @@ jest.mock("../tabulate")
 
 describe("commentIdentifier", () => {
 	test("a comment identifier is returned", function() {
-		const result = commentIdentifier("workflow name")
+		const result = commentIdentifier({ workflowName: "workflow name" })
 		expect(result).toEqual("<!-- Code Coverage Comment: workflow name -->")
+	})
+	test("a comment identifier considers run name", function() {
+		const result = commentIdentifier({ workflowName: "workflow name", name: "run name" })
+		expect(result).toEqual("<!-- Code Coverage Comment: workflow name run name -->")
 	})
 })
 
